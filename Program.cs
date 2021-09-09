@@ -37,6 +37,8 @@ namespace NinetiesTV
             Print("Unique Generes", UniqueGeneres(shows));
             // Print("Count Shows per year", CountTheShowsPerYear(shows));
             Print("Total Run Time", TotalShowRunTime(shows));
+            Print("Heighest avg year", HighestAverageYear(shows));
+            
         }
 
         /**************************************************************************************************
@@ -317,6 +319,28 @@ namespace NinetiesTV
             }
         // 5. Assume each show ran each year between its start and end years (which isn't true), which year had the highest average IMDB rating.
 
+                static List<Show> HighestAverageYear (List<Show> shows)
+                {
+                    
+
+                    // List<Show> bigList = new List<Show>();
+
+                    // foreach( Show s in shows)
+                    // {
+                    //     int showYears = s.EndYear - s.StartYear;
+
+                    //     for (int i = 0;i < showYears; i++)
+                    //     {
+                    //         bigList.Add(s);
+                    //     }
+                    // }
+
+                    // return bigList;
+
+                    Show FirstYearObj = shows.OrderBy(s => s.StartYear).FirstOrDefault(); 
+                    Show LastYearObj = shows.OrderByDescending(s => s.StartYear).FirstOrDefault();
+                    
+                }
 
 
         /**************************************************************************************************
