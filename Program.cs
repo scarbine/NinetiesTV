@@ -35,6 +35,7 @@ namespace NinetiesTV
             Print("All Names with And", AllNamesWithCommasPlsAnd(shows));
             Print("All 80s Generes", GenereIn80s(shows));
             Print("Unique Generes", UniqueGeneres(shows));
+            Print("Count Shows per year", CountTheShowsPerYear(shows));
         }
 
         /**************************************************************************************************
@@ -272,12 +273,27 @@ namespace NinetiesTV
 
         static List<string> UniqueGeneres(List<Show> shows)
         {
-            List<string> Gen = GenereIn80s(shows).ToList();
+            List<string> Gen = GenereIn80s(shows).Distinct().ToList();
             return Gen;
 
         }
 
         // 3. Print the years 1987 - 2018 along with the number of shows that started in each year (note many years will have zero shows)
+
+        static IList<object> CountTheShowsPerYear (List<Show> shows)
+        {
+            var results = shows.GroupBy(
+                s => s.StartYear,
+                s => s.Name,
+                (key, y ) => new {
+                    StartYear = key,
+                    Name = y.ToList()
+                }
+            );
+                return results;
+            
+           
+        }
         // 4. Assume each episode of a comedy is 22 minutes long and each episode of a show that isn't a comedy is 42 minutes. How long would it take to watch every episode of each show?
         // 5. Assume each show ran each year between its start and end years (which isn't true), which year had the highest average IMDB rating.
 
