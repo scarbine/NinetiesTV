@@ -35,7 +35,8 @@ namespace NinetiesTV
             Print("All Names with And", AllNamesWithCommasPlsAnd(shows));
             Print("All 80s Generes", GenereIn80s(shows));
             Print("Unique Generes", UniqueGeneres(shows));
-            Print("Count Shows per year", CountTheShowsPerYear(shows));
+            // Print("Count Shows per year", CountTheShowsPerYear(shows));
+            Print("Total Run Time", TotalShowRunTime(shows));
         }
 
         /**************************************************************************************************
@@ -280,21 +281,40 @@ namespace NinetiesTV
 
         // 3. Print the years 1987 - 2018 along with the number of shows that started in each year (note many years will have zero shows)
 
-        static IList<object> CountTheShowsPerYear (List<Show> shows)
-        {
-            var results = shows.GroupBy(
-                s => s.StartYear,
-                s => s.Name,
-                (key, y ) => new {
-                    StartYear = key,
-                    Name = y.ToList()
-                }
-            );
-                return results;
+        // static dynamic CountTheShowsPerYear (List<Show> shows)
+        // {
+        //     var results = shows.GroupBy(
+        //         s => s.StartYear,
+        //         s => s.Name,
+        //         (key, y ) => new {
+        //             StartYear = key,
+        //             Name = y.ToList()
+        //         }
+        //     );
+        //         return results;
             
            
-        }
+        // }
         // 4. Assume each episode of a comedy is 22 minutes long and each episode of a show that isn't a comedy is 42 minutes. How long would it take to watch every episode of each show?
+            static string TotalShowRunTime(List<Show> shows) 
+            {
+                List<Show> comedy = shows.Where(s => s.Genres.Contains("Comedy")).ToList();
+                List<Show> notComedy = shows.Where(s => !s.Genres.Contains("Comedy")).ToList();
+                int Time = 0;
+                
+                foreach (Show s in comedy)
+                {
+                    Time += s.EpisodeCount * 22;
+                }
+
+                foreach (Show s in notComedy)
+                {
+                    Time += s.EpisodeCount * 42;
+                }
+                Double Hours = Time /60;
+                Double Days = Hours /24;
+                return $"It will take {Time} mins to watch all of the episodes. Thats {Hours} housr or {((float)Days)} Days ";
+            }
         // 5. Assume each show ran each year between its start and end years (which isn't true), which year had the highest average IMDB rating.
 
 
