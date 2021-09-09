@@ -214,16 +214,23 @@ namespace NinetiesTV
         // 23. Do the same as above, but put the word "and" between the second-to-last and last show name.
         static string AllNamesWithCommasPlsAnd(List<Show> shows)
         {
+             int len = shows.Count -1;
+             int len2 = shows.Count - 2;
              
-             int len = shows.Count;
-             var last = shows.Take(len);
-             var secToLast = shows.Take(len-1);
+             List<string> last2 = new List<string>(){
+                 shows[len].Name, shows[len2].Name
+             };
+
+            List<Show> cut = shows.Take(len2).ToList();
                 string answer = "";
-             foreach (Show n in shows)
+             foreach (Show n in cut)
              {
                  answer += $"{n.Name.ToString()}, ";
              }
-             answer += $"and {secToLast} and {last}";
+             foreach (string n in last2)
+             {
+                 answer += $"and {n}  ";
+             }
              return answer;
 
         }
